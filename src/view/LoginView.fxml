@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #F1F8E9;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LoginController">
+    <padding>
+        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+    </padding>
+    <children>
+        <Label text="MAIL SYSTEM" textFill="#2e7d32">
+            <font>
+                <Font name="System Bold" size="28.0" />
+            </font>
+        </Label>
+        <Label text="Vui lòng đăng nhập để sử dụng" />
+        <TextField fx:id="txtUser" prefHeight="40.0" promptText="Tên đăng nhập..." style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #A5D6A7; -fx-border-width: 2;" />
+        <HBox alignment="CENTER" spacing="15.0">
+            <children>
+                <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#handleLogin" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #66BB6A; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold; -fx-cursor: hand;" text="ĐĂNG NHẬP" />
+                <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#handleRegister" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #A5D6A7; -fx-text-fill: white; -fx-background-radius: 20; -fx-font-weight: bold; -fx-cursor: hand;" text="ĐĂNG KÝ" />
+            </children>
+        </HBox>
+    </children>
+</VBox>
