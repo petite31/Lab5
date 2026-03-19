@@ -64,7 +64,12 @@ public class DashboardController {
         String res = NetworkService.sendRequest(req);
 
         if (res != null) {
-            showAlert("Alert", res.split("\\|")[1]);
+            String[] parts = res.split("\\|");
+            String msg = (parts.length > 1) ? parts[1] : res;
+            showAlert("Notification", msg);
+
+        } else {
+            showAlert("Error", "No response from Server!");
         }
 
         // Gửi xong thì xóa trắng form
@@ -130,6 +135,11 @@ public class DashboardController {
         alert.setHeaderText(null);
         alert.setContentText(msg);
 
+        if (txtTo != null && txtTo.getScene() != null) {
+            alert.initOwner(txtTo.getScene().getWindow());
+        }
+
+        // Làm đẹp khung cảnh báo
         DialogPane dialogPane = alert.getDialogPane();
         try {
             dialogPane.getStylesheets().add(getClass().getResource("/view/style.css").toExternalForm());
