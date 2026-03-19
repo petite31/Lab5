@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<StackPane
+        prefHeight="550.0"
+        prefWidth="550.0"
+        style="-fx-background-color: #E8F5E9;"
+        stylesheets="@style.css"
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="Controller.LoginController">
+
+    <children>
+
+        <VBox
+                alignment="CENTER"
+                maxHeight="450.0"
+                maxWidth="400.0"
+                spacing="20.0"
+                style="-fx-background-color: white;
+                -fx-background-radius: 20;">
+
+            <effect>
+                <DropShadow color="#0000001a" height="50.0" radius="24.5" width="50.0" />
+            </effect>
+
+            <padding>
+                <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+            </padding>
+
+            <children>
+
+                <Label
+                        text="MAIL SYSTEM"
+                        textFill="#2e7d32">
+
+                    <font>
+                        <Font name="System Bold" size="30.0" />
+                    </font>
+
+                </Label>
+
+                <Label
+                        text="Please login to continue"
+                        textFill="#000000">
+
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+
+                    <VBox.margin>
+                        <Insets bottom="10.0" />
+                    </VBox.margin>
+
+                </Label>
+
+                <TextField
+                        fx:id="txtUser"
+                        prefHeight="50.0"
+                        promptText="Enter your username..."
+                        styleClass="modern-textfield" />
+
+                <HBox alignment="CENTER" spacing="15.0">
+
+                    <VBox.margin>
+                        <Insets top="15.0" />
+                    </VBox.margin>
+
+                    <children>
+
+                        <Button
+                                fx:id="btnLogin"
+                                mnemonicParsing="false"
+                                onAction="#handleLogin"
+                                prefHeight="45.0"
+                                prefWidth="140.0"
+                                styleClass="modern-button"
+                                text="LOGIN" />
+
+                        <Button
+                                fx:id="btnRegister"
+                                mnemonicParsing="false"
+                                onAction="#handleRegister"
+                                prefHeight="45.0"
+                                prefWidth="140.0"
+                                styleClass="modern-button-outline"
+                                text="REGISTER" />
+
+                    </children>
+
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</StackPane>

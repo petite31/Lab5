@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<HBox
+        prefHeight="700.0"
+        prefWidth="950.0"
+        spacing="25.0"
+        style="-fx-background-color: #E8F5E9;"
+        stylesheets="@style.css"
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="Controller.DashboardController">
+
+    <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+    </padding>
+
+    <children>
+
+        <VBox
+                prefWidth="280.0"
+                spacing="20.0"
+                style="-fx-background-color: white;
+                -fx-background-radius: 20;">
+
+            <effect>
+                <DropShadow color="#00000014" height="40.0" radius="19.5" width="40.0" />
+            </effect>
+
+            <padding>
+                <Insets bottom="25.0" left="20.0" right="20.0" top="25.0" />
+            </padding>
+
+            <children>
+
+                <Label
+                        fx:id="lblUser"
+                        text="Mailbox"
+                        textFill="#2e7d32">
+
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+
+                </Label>
+
+                <ListView
+                        fx:id="lvEmails"
+                        styleClass="modern-listview"
+                        VBox.vgrow="ALWAYS" />
+
+                <Button
+                        mnemonicParsing="false"
+                        onAction="#handleRefresh"
+                        prefHeight="45.0"
+                        maxWidth="80.0"
+                        styleClass="modern-button-secondary"
+                        text="Refresh" />
+
+                <Button
+                        mnemonicParsing="false"
+                        onAction="#handleLogout"
+                        prefHeight="45.0"
+                        maxWidth="80.0"
+                        styleClass="modern-button-danger"
+                        text="Logout" />
+            </children>
+
+        </VBox>
+
+        <VBox
+                spacing="20.0"
+                style="-fx-background-color: white;
+                -fx-background-radius: 20;"
+                HBox.hgrow="ALWAYS">
+
+            <effect>
+                <DropShadow color="#00000014" height="40.0" radius="19.5" width="40.0" />
+            </effect>
+
+            <padding>
+                <Insets bottom="35.0" left="35.0" right="35.0" top="35.0" />
+            </padding>
+
+            <children>
+
+                <Label
+                        text="Compose Your New Email"
+                        textFill="#2e7d32">
+
+                    <font>
+                        <Font name="System Bold" size="26.0" />
+                    </font>
+
+                </Label>
+
+                <TextField
+                        fx:id="txtTo"
+                        prefHeight="50.0"
+                        promptText="To..."
+                        styleClass="modern-textfield" />
+
+                <TextField
+                        fx:id="txtSubject"
+                        prefHeight="50.0"
+                        promptText="Subject..."
+                        styleClass="modern-textfield" />
+
+                <TextArea
+                        fx:id="txtContent"
+                        promptText="Type your email content here..."
+                        styleClass="modern-textarea"
+                        VBox.vgrow="ALWAYS" />
+
+                <Button
+                        mnemonicParsing="false"
+                        onAction="#handleSend"
+                        prefHeight="50.0"
+                        maxWidth="-Infinity"
+                        styleClass="modern-button"
+                        text="SEND EMAIL" />
+            </children>
+        </VBox>
+
+    </children>
+</HBox>

@@ -12,10 +12,19 @@ public class FileManage {
 
     public static String register(String user) {
         File userDir = new File(DATA_PATH + user);
-        if (userDir.exists()) return "FAIL|Username already exists!";
+        if (userDir.exists()) return "FAIL|Account already exists!";
+
 
         userDir.mkdirs();
-        saveEmail(user, "Welcome", "Thank you for using this service. We hope you feel comfortable.");
+
+        File welcomeFile = new File(userDir, "new_email.txt");
+        try (PrintWriter out = new PrintWriter(welcomeFile)) {
+
+            out.print("Thank you for using this service. we hope that you will feel comfortable.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return "SUCCESS|Registration successful!";
     }
 

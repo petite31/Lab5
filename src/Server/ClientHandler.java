@@ -28,9 +28,26 @@ public class ClientHandler extends Thread {
                     out.println(FileManage.login(data[1]));
                     break;
                 case "SEND":
-                    FileManage.saveEmail(data[1], data[2], data[3]);
-                    out.println("SUCCESS|Đã gửi mail!");
+                    String toUser = data[1];
+                    String subject = data.length > 2 ? data[2] : "No_Subject";
+                    String content = data.length > 3 ? data[3] : "";
+
+                    // Log Server
+                    System.out.println("\n[SERVER LOG] Received an email sending request:");
+                    System.out.println(" ↳ Recipient account identified: " + toUser);
+                    System.out.println(" ↳ Email subject: " + subject);
+
+                    // Save
+                    String result = FileManage.saveEmail(toUser, subject, content);
+
+                    // Console
+                    if (result.startsWith("SUCCESS")) {
+                        System.out.println(" ↳ Successfully created file in directory: MailData/" + toUser);
+                    } else {
+                        System.out.println(" ↳ FAILED: " + result.split("\\|")[1]);
+                    }
                     break;
+
                 case "READ":
                     out.println(FileManage.readEmail(data[1], data[2]));
                     break;
