@@ -42,6 +42,11 @@ public class ClientHandler extends Thread {
                     System.out.println(" ↳ Recipient: " + toUser);
                     System.out.println(" ↳ Subject: " + subject);
 
+                    System.out.println(" ↳ Email Content: \n------------------------------------------------");
+                    System.out.println(content.replace("<br>", "\n"));
+                    System.out.println("------------------------------------------------");
+
+
                     String result = FileManage.saveEmail(toUser, subject, content);
 
                     if (result.startsWith("SUCCESS")) {
