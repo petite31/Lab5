@@ -57,15 +57,15 @@
                         mnemonicParsing="false"
                         onAction="#handleRefresh"
                         prefHeight="45.0"
-                        maxWidth="Double.MAX_VALUE"
+                        maxWidth="80.0"
                         styleClass="modern-button-secondary"
-                        text="Refresh Mailbox" />
+                        text="Refresh" />
 
                 <Button
                         mnemonicParsing="false"
                         onAction="#handleLogout"
                         prefHeight="45.0"
-                        maxWidth="Double.MAX_VALUE"
+                        maxWidth="80.0"
                         styleClass="modern-button-danger"
                         text="Logout" />
             </children>
@@ -89,7 +89,7 @@
             <children>
 
                 <Label
-                        text="Compose New Email"
+                        text="Compose Your New Email"
                         textFill="#2e7d32">
 
                     <font>
@@ -120,7 +120,7 @@
                         mnemonicParsing="false"
                         onAction="#handleSend"
                         prefHeight="50.0"
-                        maxWidth="Double.MAX_VALUE"
+                        maxWidth="-Infinity"
                         styleClass="modern-button"
                         text="SEND EMAIL" />
             </children>
