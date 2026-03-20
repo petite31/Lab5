@@ -5,10 +5,7 @@ import java.io.*;
 
 public class ClientHandler extends Thread {
     private Socket socket;
-
-    public ClientHandler(Socket socket) {
-        this.socket = socket;
-    }
+    public ClientHandler(Socket socket) { this.socket = socket; }
 
     public void run() {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -16,17 +13,20 @@ public class ClientHandler extends Thread {
 
             String line = in.readLine();
             if (line == null) return;
-
             String[] data = line.split("\\|");
             String cmd = data[0];
 
             switch (cmd) {
                 case "REGISTER":
-                    out.println(FileManage.register(data[1]));
+                    out.println(FileManage.register(data[1], data[2]));
                     break;
 
                 case "LOGIN":
-                    out.println(FileManage.login(data[1]));
+                    out.println(FileManage.login(data[1], data[2]));
+                    break;
+
+                case "REFRESH":
+                    out.println(FileManage.getMailList(new File("MailData/" + data[1])));
                     break;
 
                 case "READ":
@@ -34,32 +34,23 @@ public class ClientHandler extends Thread {
                     break;
 
                 case "SEND":
-                    String toUser = data[1];
-                    String subject = data.length > 2 ? data[2] : "No_Subject";
-                    String content = data.length > 3 ? data[3] : "";
+                    String fromUser = data[1];
+                    String toUser = data[2];
+                    String subject = data.length > 3 ? data[3] : "No_Subject";
+                    String content = data.length > 4 ? data[4] : "";
 
-                    System.out.println("\n[SERVER LOG] Received an email sending request:");
-                    System.out.println(" ↳ Recipient: " + toUser);
-                    System.out.println(" ↳ Subject: " + subject);
+                    System.out.println("\n[SERVER LOG] Email sending request:");
+                    System.out.println(" ↳ From: " + fromUser + " | To: " + toUser);
 
-                    System.out.println(" ↳ Email Content: \n------------------------------------------------");
-                    System.out.println(content.replace("<br>", "\n"));
-                    System.out.println("------------------------------------------------");
-
-
-                    String result = FileManage.saveEmail(toUser, subject, content);
-
+                    String result = FileManage.saveEmail(fromUser, toUser, subject, content);
                     if (result.startsWith("SUCCESS")) {
-                        System.out.println(" ↳ Successfully created file in directory: MailData/" + toUser);
+                        System.out.println(" ↳ SUCCESS: Saved to MailData/" + toUser);
                     } else {
-                        System.out.println(" ↳ FAILED: " + result.split("\\|")[1]);
+                        System.out.println(" ↳ FAILED: " + result);
                     }
-
                     out.println(result);
                     break;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }

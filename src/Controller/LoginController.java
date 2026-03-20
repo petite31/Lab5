@@ -7,68 +7,61 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class LoginController {
-
-    @FXML
-    private TextField txtUser;
-
-    @FXML
-    private Button btnLogin;
-
-    @FXML
-    private Button btnRegister;
+    @FXML private TextField txtUser;
+    @FXML private PasswordField txtPass;
+    @FXML private Button btnLogin;
+    @FXML private Button btnRegister;
 
     @FXML
     void handleLogin(ActionEvent event) {
         String user = txtUser.getText().trim();
-        if (user.isEmpty()) return;
+        String pass = txtPass.getText().trim();
 
-        String res = NetworkService.sendRequest("LOGIN|" + user);
+        if (user.isEmpty() || pass.isEmpty()) {
+            showAlert("Error", "Username and Password cannot be empty!");
+            return;
+        }
+
+        String res = NetworkService.sendRequest("LOGIN|" + user + "|" + pass);
 
         if (res != null && res.startsWith("SUCCESS")) {
             try {
-
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DashboardView.fxml"));
                 Parent root = loader.load();
-
                 DashboardController dashboardCtrl = loader.getController();
                 String files = res.split("\\|").length > 1 ? res.split("\\|")[1] : "";
                 dashboardCtrl.initData(user, files);
-
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setScene(new Scene(root));
-
             } catch (Exception e) {
                 e.printStackTrace();
-                showAlert("System Error", "Cannot load the Dashboard screen.");
             }
-
         } else {
             showAlert("Error", res != null ? res.split("\\|")[1] : "Cannot connect to the server!");
         }
-
     }
 
-    // Hàm này chạy khi bấm nút Đăng ký
+
     @FXML
     void handleRegister(ActionEvent event) {
         String user = txtUser.getText().trim();
-        System.out.println("Processing registration for: " + user);
+        String pass = txtPass.getText().trim(); // Lấy mật khẩu
+        if (user.isEmpty() || pass.isEmpty()) {
+            showAlert("Error", "Username and Password cannot be empty!");
+            return;
+        }
 
-        String res = NetworkService.sendRequest("REGISTER|" + user);
 
+        String res = NetworkService.sendRequest("REGISTER|" + user + "|" + pass);
         if (res != null) {
             showAlert("Notification", res.split("\\|")[1]);
-        } else {
-            showAlert("Error", "Cannot connect to the server.");
         }
     }
+
 
     private void showAlert(String title, String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

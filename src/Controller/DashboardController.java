@@ -26,7 +26,7 @@ public class DashboardController {
     @FXML
     public void initialize() {
         lvEmails.setOnMouseClicked((MouseEvent event) -> {
-            // Kiểm tra nếu người dùng click đúp (2 lần)
+
             if (event.getClickCount() == 2) {
                 String selectedFile = lvEmails.getSelectionModel().getSelectedItem();
                 if (selectedFile != null) {
@@ -60,34 +60,23 @@ public class DashboardController {
 
         String encodedContent = content.replace("\n", "<br>");
 
-        String req = "SEND|" + to + "|" + sub + "|" + encodedContent;
+        String req = "SEND|" + currentUser + "|" + to + "|" + sub + "|" + encodedContent;
         String res = NetworkService.sendRequest(req);
 
         if (res != null) {
             String[] parts = res.split("\\|");
-            String msg = (parts.length > 1) ? parts[1] : res;
-            showAlert("Notification", msg);
-
-        } else {
-            showAlert("Error", "No response from Server!");
+            showAlert("Notification", parts.length > 1 ? parts[1] : res);
         }
-
-        // Gửi xong thì xóa trắng form
-        txtTo.clear();
-        txtSubject.clear();
-        txtContent.clear();
+        txtTo.clear(); txtSubject.clear(); txtContent.clear();
     }
 
-    // 4. Làm Mới Hộp Thư
+//    4. refresh
     @FXML
     void handleRefresh(ActionEvent event) {
-        String res = NetworkService.sendRequest("LOGIN|" + currentUser);
+        String res = NetworkService.sendRequest("REFRESH|" + currentUser);
         if (res != null && res.startsWith("SUCCESS")) {
             lvEmails.getItems().clear();
-
             String[] parts = res.split("\\|");
-
-            // Nếu có file thì mới cắt chuỗi và đưa vào list
             if (parts.length > 1 && !parts[1].isEmpty()) {
                 lvEmails.getItems().addAll(parts[1].split(","));
             }
