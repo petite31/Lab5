@@ -31,7 +31,7 @@ public class FileManage {
             out.println("From: System Admin");
             out.println("To: " + user);
             out.println("------------------------------------------------");
-            out.print("Thank you for using this service. we hope that you will feel comfortable.......");
+            out.print("Thank you for using this service. we hope that you will feel comfortable...");
         } catch (IOException e) { e.printStackTrace(); }
 
         return "SUCCESS|Registration successful!";
